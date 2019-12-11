@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sample.test.dao.mapper.bi.DimOrgRegionMapper" >
+  <resultMap id="BaseResultMap" type="com.sample.test.common.entity.DimOrgRegion" >
+    <id column="REGION_NO" property="regionNo" jdbcType="VARCHAR" />
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    REGION_NO, REGION_NAME
+  </sql>
+
+  <sql id="condition" >
+    <if test="null!=params" >
+      <if test="null!=params.queryCondition and ''!=params.queryCondition" >
+        ${params.queryCondition}
+      </if>
+      <if test="null!=params.regionName and ''!=params.regionName" >
+         and region_name = #{params.regionName} 
+      </if>
+    </if>
+  </sql>
+
+    <select id="getQueryRegion" resultMap="BaseResultMap" >
+   	    select region_no,region_name from u_md_dm.DIM_ORG_REGION
+ 	 </select>
+
+</mapper>

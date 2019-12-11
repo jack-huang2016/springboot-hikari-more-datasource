@@ -1,0 +1,61 @@
+server:
+  servlet:
+    context-path: /hikaris
+
+mybatis:
+  #mybatis映射文件xml的路径
+  mapperLocations: classpath*:mapper/*Mapper.xml
+  #实体类所在包路径
+  type-aliases-package: com.sample.test.common.entity
+
+spring:
+   datasource:
+     #主数据源，此配置是自定义的配置，不是springboot自动装配的属性
+     master:
+        pool-name: BI_DEV_DataSource
+        jdbc-url: jdbc:oracle:thin:@172.17.209.184:1521:devbiedwshoes
+        username: u_md_rs
+        password: belle@16_rs
+        driver-class-name: oracle.jdbc.OracleDriver
+        type: com.zaxxer.hikari.HikariDataSource
+        connection-timeout: 30000
+        idle-timeout: 180000
+        max-lifetime: 1800000
+        maximum-pool-size: 10
+        minimum-idle: 5
+        auto-commit: true
+        connection-test-query: SELECT 1 FROM DUAL
+    #更多数据源，此配置是自定义的配置，不是springboot自动装配的属性
+     slave:
+       - key: ds2
+         pool-name: PT_DEV_DataSource
+         jdbc-url: jdbc:oracle:thin:@172.17.209.243:1521:bidbportal
+         username: u_db_pt
+         password: u_db_pt
+         driver-class-name: oracle.jdbc.OracleDriver
+         type: com.zaxxer.hikari.HikariDataSource
+         connection-timeout: 30000
+         idle-timeout: 180000
+         max-lifetime: 1800000
+         maximum-pool-size: 10
+         minimum-idle: 5
+         auto-commit: true
+         connection-test-query: SELECT 1 FROM DUAL
+       - key: ds3
+         pool-name: PT_TEST_DataSource
+         jdbc-url: jdbc:oracle:thin:@10.234.8.5:1521:bidbpt
+         username: u_db_pt
+         password: u_db_pt
+         driver-class-name: oracle.jdbc.OracleDriver
+         type: com.zaxxer.hikari.HikariDataSource
+         connection-timeout: 30000
+         idle-timeout: 180000
+         max-lifetime: 1800000
+         maximum-pool-size: 10
+         minimum-idle: 5
+         auto-commit: true
+         connection-test-query: SELECT 1 FROM DUAL
+
+
+
+

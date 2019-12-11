@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sample.test.dao.mapper.pt.MgrParamScopeMapper" >
+  <resultMap id="BaseResultMap" type="com.sample.test.common.entity.MgrParamScope" >
+    <result column="API_ID" property="apiId" jdbcType="INTEGER" />
+    <result column="TOKEN" property="token" jdbcType="VARCHAR" />
+    <result column="PARAM_KEY" property="paramKey" jdbcType="VARCHAR" />
+    <result column="VALUE" property="value" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="condition">
+    <if test="null!=params" >
+      <if test="null!=params.queryCondition and ''!=params.queryCondition" >
+        ${params.queryCondition}
+      </if>
+      <if test="null!=params.apiId and ''!=params.apiId" >
+        AND API_ID = #{params.apiId}
+      </if>
+      <if test="null!=params.token and ''!=params.token" >
+        AND TOKEN = #{params.token}
+      </if>
+      <if test="null!=params.key and ''!=params.key" >
+        AND PARAM_KEY = #{params.key}
+      </if>
+      <if test="null!=params.value and ''!=params.value" >
+        AND VALUE = #{params.value}
+      </if>
+    </if>
+  </sql>
+  
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
+    SELECT 
+    API_ID, TOKEN, PARAM_KEY, VALUE
+     FROM U_DB_PT.MGR_PARAM_SCOPE WHERE 1=1 
+    <include refid="condition" />
+  </select>
+ 
+</mapper>
